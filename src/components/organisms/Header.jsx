@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
+import { AuthContext } from "../../App";
+const LogoutButton = () => {
+  const { logout } = useContext(AuthContext);
+  
+  const handleLogout = () => {
+    if (confirm('Are you sure you want to logout?')) {
+      logout();
+    }
+  };
+  
+  return (
+    <Button 
+      variant="outline" 
+      size="sm" 
+      icon="LogOut"
+      onClick={handleLogout}
+      className="text-red-600 hover:text-red-700 border-red-200 hover:border-red-300"
+    >
+      Logout
+    </Button>
+  );
+};
 
 const Header = ({ onMenuClick }) => {
   return (
@@ -25,7 +47,7 @@ const Header = ({ onMenuClick }) => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+<div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm" icon="Bell">
               <span className="sr-only">Notifications</span>
             </Button>
@@ -33,6 +55,8 @@ const Header = ({ onMenuClick }) => {
             <Button variant="ghost" size="sm" icon="Settings">
               <span className="sr-only">Settings</span>
             </Button>
+            
+            <LogoutButton />
           </div>
         </div>
       </div>
