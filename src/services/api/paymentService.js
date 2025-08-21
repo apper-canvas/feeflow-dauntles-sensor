@@ -9,32 +9,32 @@ export const paymentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "FeeId" } },
-          { field: { Name: "Amount" } },
-          { field: { Name: "PaymentDate" } },
-          { field: { Name: "Method" } },
-          { field: { Name: "Reference" } }
+          { field: { Name: "fee_id_c" } },
+          { field: { Name: "amount_c" } },
+          { field: { Name: "payment_date_c" } },
+          { field: { Name: "method_c" } },
+          { field: { Name: "reference_c" } }
         ],
-        orderBy: [{ fieldName: "PaymentDate", sorttype: "DESC" }]
+        orderBy: [{ fieldName: "payment_date_c", sorttype: "DESC" }]
       };
 
-      const response = await apperClient.fetchRecords('Payments', params);
+      const response = await apperClient.fetchRecords('payment_c', params);
       
       if (!response.success) {
         console.error(response.message);
         throw new Error(response.message);
       }
 
-      return response.data.map(payment => ({
+return response.data.map(payment => ({
         Id: payment.Id,
-        feeId: payment.FeeId,
-        amount: payment.Amount,
-        paymentDate: payment.PaymentDate,
-        method: payment.Method,
-        reference: payment.Reference || ''
+        feeId: payment.fee_id_c,
+        amount: payment.amount_c,
+        paymentDate: payment.payment_date_c,
+        method: payment.method_c,
+        reference: payment.reference_c || ''
       }));
     } catch (error) {
       console.error("Error in paymentService.getAll:", error);
@@ -50,30 +50,30 @@ export const paymentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "FeeId" } },
-          { field: { Name: "Amount" } },
-          { field: { Name: "PaymentDate" } },
-          { field: { Name: "Method" } },
-          { field: { Name: "Reference" } }
+          { field: { Name: "fee_id_c" } },
+          { field: { Name: "amount_c" } },
+          { field: { Name: "payment_date_c" } },
+          { field: { Name: "method_c" } },
+          { field: { Name: "reference_c" } }
         ]
       };
 
-      const response = await apperClient.getRecordById('Payments', parseInt(id), params);
+      const response = await apperClient.getRecordById('payment_c', parseInt(id), params);
       
       if (!response.success || !response.data) {
         return null;
       }
 
-      return {
+return {
         Id: response.data.Id,
-        feeId: response.data.FeeId,
-        amount: response.data.Amount,
-        paymentDate: response.data.PaymentDate,
-        method: response.data.Method,
-        reference: response.data.Reference || ''
+        feeId: response.data.fee_id_c,
+        amount: response.data.amount_c,
+        paymentDate: response.data.payment_date_c,
+        method: response.data.method_c,
+        reference: response.data.reference_c || ''
       };
     } catch (error) {
       console.error("Error in paymentService.getById:", error);
@@ -89,37 +89,37 @@ export const paymentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "FeeId" } },
-          { field: { Name: "Amount" } },
-          { field: { Name: "PaymentDate" } },
-          { field: { Name: "Method" } },
-          { field: { Name: "Reference" } }
+          { field: { Name: "fee_id_c" } },
+          { field: { Name: "amount_c" } },
+          { field: { Name: "payment_date_c" } },
+          { field: { Name: "method_c" } },
+          { field: { Name: "reference_c" } }
         ],
         where: [
           {
-            FieldName: "FeeId",
+            FieldName: "fee_id_c",
             Operator: "EqualTo",
             Values: [parseInt(feeId)]
           }
         ]
       };
 
-      const response = await apperClient.fetchRecords('Payments', params);
+      const response = await apperClient.fetchRecords('payment_c', params);
       
       if (!response.success) {
         return [];
       }
 
-      return response.data.map(payment => ({
+return response.data.map(payment => ({
         Id: payment.Id,
-        feeId: payment.FeeId,
-        amount: payment.Amount,
-        paymentDate: payment.PaymentDate,
-        method: payment.Method,
-        reference: payment.Reference || ''
+        feeId: payment.fee_id_c,
+        amount: payment.amount_c,
+        paymentDate: payment.payment_date_c,
+        method: payment.method_c,
+        reference: payment.reference_c || ''
       }));
     } catch (error) {
       console.error("Error in paymentService.getByFeeId:", error);
@@ -135,17 +135,17 @@ export const paymentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         records: [{
-          FeeId: parseInt(paymentData.feeId),
-          Amount: parseFloat(paymentData.amount),
-          PaymentDate: paymentData.paymentDate || new Date().toISOString().split("T")[0],
-          Method: paymentData.method,
-          Reference: paymentData.reference || ''
+          fee_id_c: parseInt(paymentData.feeId),
+          amount_c: parseFloat(paymentData.amount),
+          payment_date_c: paymentData.paymentDate || new Date().toISOString().split("T")[0],
+          method_c: paymentData.method,
+          reference_c: paymentData.reference || ''
         }]
       };
 
-      const response = await apperClient.createRecord('Payments', params);
+      const response = await apperClient.createRecord('payment_c', params);
       
       if (!response.success) {
         console.error(response.message);
@@ -158,13 +158,13 @@ export const paymentService = {
           // Update fee status to paid
           await feeService.update(paymentData.feeId, { status: "paid" });
           
-          return {
+return {
             Id: result.data.Id,
-            feeId: result.data.FeeId,
-            amount: result.data.Amount,
-            paymentDate: result.data.PaymentDate,
-            method: result.data.Method,
-            reference: result.data.Reference
+            feeId: result.data.fee_id_c,
+            amount: result.data.amount_c,
+            paymentDate: result.data.payment_date_c,
+            method: result.data.method_c,
+            reference: result.data.reference_c
           };
         } else {
           throw new Error(result.message || 'Failed to create payment');
@@ -188,17 +188,17 @@ export const paymentService = {
         Id: parseInt(id)
       };
 
-      if (paymentData.feeId !== undefined) updateFields.FeeId = parseInt(paymentData.feeId);
-      if (paymentData.amount !== undefined) updateFields.Amount = parseFloat(paymentData.amount);
-      if (paymentData.paymentDate !== undefined) updateFields.PaymentDate = paymentData.paymentDate;
-      if (paymentData.method !== undefined) updateFields.Method = paymentData.method;
-      if (paymentData.reference !== undefined) updateFields.Reference = paymentData.reference;
+if (paymentData.feeId !== undefined) updateFields.fee_id_c = parseInt(paymentData.feeId);
+      if (paymentData.amount !== undefined) updateFields.amount_c = parseFloat(paymentData.amount);
+      if (paymentData.paymentDate !== undefined) updateFields.payment_date_c = paymentData.paymentDate;
+      if (paymentData.method !== undefined) updateFields.method_c = paymentData.method;
+      if (paymentData.reference !== undefined) updateFields.reference_c = paymentData.reference;
 
       const params = {
         records: [updateFields]
       };
 
-      const response = await apperClient.updateRecord('Payments', params);
+      const response = await apperClient.updateRecord('payment_c', params);
       
       if (!response.success) {
         console.error(response.message);
@@ -208,13 +208,13 @@ export const paymentService = {
       if (response.results && response.results.length > 0) {
         const result = response.results[0];
         if (result.success) {
-          return {
+return {
             Id: result.data.Id,
-            feeId: result.data.FeeId,
-            amount: result.data.Amount,
-            paymentDate: result.data.PaymentDate,
-            method: result.data.Method,
-            reference: result.data.Reference
+            feeId: result.data.fee_id_c,
+            amount: result.data.amount_c,
+            paymentDate: result.data.payment_date_c,
+            method: result.data.method_c,
+            reference: result.data.reference_c
           };
         } else {
           throw new Error(result.message || 'Failed to update payment');
@@ -242,7 +242,7 @@ export const paymentService = {
         RecordIds: [parseInt(id)]
       };
 
-      const response = await apperClient.deleteRecord('Payments', params);
+const response = await apperClient.deleteRecord('payment_c', params);
       
       if (!response.success) {
         console.error(response.message);

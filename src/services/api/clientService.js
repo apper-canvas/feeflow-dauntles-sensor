@@ -7,34 +7,34 @@ export const clientService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
           { field: { Name: "Name" } },
-          { field: { Name: "Email" } },
-          { field: { Name: "Phone" } },
-          { field: { Name: "TotalDue" } },
-          { field: { Name: "TotalPaid" } },
-          { field: { Name: "Status" } }
+          { field: { Name: "email_c" } },
+          { field: { Name: "phone_c" } },
+          { field: { Name: "total_due_c" } },
+          { field: { Name: "total_paid_c" } },
+          { field: { Name: "status_c" } }
         ],
         orderBy: [{ fieldName: "Name", sorttype: "ASC" }]
       };
 
-      const response = await apperClient.fetchRecords('Clients', params);
+      const response = await apperClient.fetchRecords('client_c', params);
       
       if (!response.success) {
         console.error(response.message);
         throw new Error(response.message);
       }
 
-      return response.data.map(client => ({
+return response.data.map(client => ({
         Id: client.Id,
         name: client.Name,
-        email: client.Email,
-        phone: client.Phone,
-        totalDue: client.TotalDue || 0,
-        totalPaid: client.TotalPaid || 0,
-        status: client.Status || 'active'
+        email: client.email_c,
+        phone: client.phone_c,
+        totalDue: client.total_due_c || 0,
+        totalPaid: client.total_paid_c || 0,
+        status: client.status_c || 'active'
       }));
     } catch (error) {
       console.error("Error in clientService.getAll:", error);
@@ -50,32 +50,32 @@ export const clientService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
           { field: { Name: "Name" } },
-          { field: { Name: "Email" } },
-          { field: { Name: "Phone" } },
-          { field: { Name: "TotalDue" } },
-          { field: { Name: "TotalPaid" } },
-          { field: { Name: "Status" } }
+          { field: { Name: "email_c" } },
+          { field: { Name: "phone_c" } },
+          { field: { Name: "total_due_c" } },
+          { field: { Name: "total_paid_c" } },
+          { field: { Name: "status_c" } }
         ]
       };
 
-      const response = await apperClient.getRecordById('Clients', parseInt(id), params);
+      const response = await apperClient.getRecordById('client_c', parseInt(id), params);
       
       if (!response.success || !response.data) {
         return null;
       }
 
-      return {
+return {
         Id: response.data.Id,
         name: response.data.Name,
-        email: response.data.Email,
-        phone: response.data.Phone,
-        totalDue: response.data.TotalDue || 0,
-        totalPaid: response.data.TotalPaid || 0,
-        status: response.data.Status || 'active'
+        email: response.data.email_c,
+        phone: response.data.phone_c,
+        totalDue: response.data.total_due_c || 0,
+        totalPaid: response.data.total_paid_c || 0,
+        status: response.data.status_c || 'active'
       };
     } catch (error) {
       console.error("Error in clientService.getById:", error);
@@ -91,18 +91,18 @@ export const clientService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         records: [{
           Name: clientData.name,
-          Email: clientData.email,
-          Phone: clientData.phone || '',
-          Status: clientData.status || 'active',
-          TotalDue: 0,
-          TotalPaid: 0
+          email_c: clientData.email,
+          phone_c: clientData.phone || '',
+          status_c: clientData.status || 'active',
+          total_due_c: 0,
+          total_paid_c: 0
         }]
       };
 
-      const response = await apperClient.createRecord('Clients', params);
+      const response = await apperClient.createRecord('client_c', params);
       
       if (!response.success) {
         console.error(response.message);
@@ -112,14 +112,14 @@ export const clientService = {
       if (response.results && response.results.length > 0) {
         const result = response.results[0];
         if (result.success) {
-          return {
+return {
             Id: result.data.Id,
             name: result.data.Name,
-            email: result.data.Email,
-            phone: result.data.Phone,
-            totalDue: result.data.TotalDue || 0,
-            totalPaid: result.data.TotalPaid || 0,
-            status: result.data.Status
+            email: result.data.email_c,
+            phone: result.data.phone_c,
+            totalDue: result.data.total_due_c || 0,
+            totalPaid: result.data.total_paid_c || 0,
+            status: result.data.status_c
           };
         } else {
           throw new Error(result.message || 'Failed to create client');
@@ -143,18 +143,18 @@ export const clientService = {
         Id: parseInt(id)
       };
 
-      if (clientData.name !== undefined) updateFields.Name = clientData.name;
-      if (clientData.email !== undefined) updateFields.Email = clientData.email;
-      if (clientData.phone !== undefined) updateFields.Phone = clientData.phone;
-      if (clientData.status !== undefined) updateFields.Status = clientData.status;
-      if (clientData.totalDue !== undefined) updateFields.TotalDue = clientData.totalDue;
-      if (clientData.totalPaid !== undefined) updateFields.TotalPaid = clientData.totalPaid;
+if (clientData.name !== undefined) updateFields.Name = clientData.name;
+      if (clientData.email !== undefined) updateFields.email_c = clientData.email;
+      if (clientData.phone !== undefined) updateFields.phone_c = clientData.phone;
+      if (clientData.status !== undefined) updateFields.status_c = clientData.status;
+      if (clientData.totalDue !== undefined) updateFields.total_due_c = clientData.totalDue;
+      if (clientData.totalPaid !== undefined) updateFields.total_paid_c = clientData.totalPaid;
 
       const params = {
         records: [updateFields]
       };
 
-      const response = await apperClient.updateRecord('Clients', params);
+      const response = await apperClient.updateRecord('client_c', params);
       
       if (!response.success) {
         console.error(response.message);
@@ -164,14 +164,14 @@ export const clientService = {
       if (response.results && response.results.length > 0) {
         const result = response.results[0];
         if (result.success) {
-          return {
+return {
             Id: result.data.Id,
             name: result.data.Name,
-            email: result.data.Email,
-            phone: result.data.Phone,
-            totalDue: result.data.TotalDue || 0,
-            totalPaid: result.data.TotalPaid || 0,
-            status: result.data.Status
+            email: result.data.email_c,
+            phone: result.data.phone_c,
+            totalDue: result.data.total_due_c || 0,
+            totalPaid: result.data.total_paid_c || 0,
+            status: result.data.status_c
           };
         } else {
           throw new Error(result.message || 'Failed to update client');
@@ -196,7 +196,7 @@ export const clientService = {
         RecordIds: [parseInt(id)]
       };
 
-      const response = await apperClient.deleteRecord('Clients', params);
+const response = await apperClient.deleteRecord('client_c', params);
       
       if (!response.success) {
         console.error(response.message);

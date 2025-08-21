@@ -9,38 +9,38 @@ export const feeService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "ClientId" } },
-          { field: { Name: "Description" } },
-          { field: { Name: "Amount" } },
-          { field: { Name: "DueDate" } },
-          { field: { Name: "Category" } },
-          { field: { Name: "Status" } },
-          { field: { Name: "IsRecurring" } },
-          { field: { Name: "Note" } }
+          { field: { Name: "client_id_c" } },
+          { field: { Name: "description_c" } },
+          { field: { Name: "amount_c" } },
+          { field: { Name: "due_date_c" } },
+          { field: { Name: "category_c" } },
+          { field: { Name: "status_c" } },
+          { field: { Name: "is_recurring_c" } },
+          { field: { Name: "note_c" } }
         ],
-        orderBy: [{ fieldName: "DueDate", sorttype: "DESC" }]
+        orderBy: [{ fieldName: "due_date_c", sorttype: "DESC" }]
       };
 
-      const response = await apperClient.fetchRecords('Fees', params);
+      const response = await apperClient.fetchRecords('fee_c', params);
       
       if (!response.success) {
         console.error(response.message);
         throw new Error(response.message);
       }
 
-      return response.data.map(fee => ({
+return response.data.map(fee => ({
         Id: fee.Id,
-        clientId: fee.ClientId,
-        description: fee.Description,
-        amount: fee.Amount,
-        dueDate: fee.DueDate,
-        category: fee.Category,
-        status: fee.Status || 'pending',
-        isRecurring: fee.IsRecurring || false,
-        note: fee.Note || ''
+        clientId: fee.client_id_c,
+        description: fee.description_c,
+        amount: fee.amount_c,
+        dueDate: fee.due_date_c,
+        category: fee.category_c,
+        status: fee.status_c || 'pending',
+        isRecurring: fee.is_recurring_c || false,
+        note: fee.note_c || ''
       }));
     } catch (error) {
       console.error("Error in feeService.getAll:", error);
@@ -56,36 +56,36 @@ export const feeService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "ClientId" } },
-          { field: { Name: "Description" } },
-          { field: { Name: "Amount" } },
-          { field: { Name: "DueDate" } },
-          { field: { Name: "Category" } },
-          { field: { Name: "Status" } },
-          { field: { Name: "IsRecurring" } },
-          { field: { Name: "Note" } }
+          { field: { Name: "client_id_c" } },
+          { field: { Name: "description_c" } },
+          { field: { Name: "amount_c" } },
+          { field: { Name: "due_date_c" } },
+          { field: { Name: "category_c" } },
+          { field: { Name: "status_c" } },
+          { field: { Name: "is_recurring_c" } },
+          { field: { Name: "note_c" } }
         ]
       };
 
-      const response = await apperClient.getRecordById('Fees', parseInt(id), params);
+      const response = await apperClient.getRecordById('fee_c', parseInt(id), params);
       
       if (!response.success || !response.data) {
         return null;
       }
 
-      return {
+return {
         Id: response.data.Id,
-        clientId: response.data.ClientId,
-        description: response.data.Description,
-        amount: response.data.Amount,
-        dueDate: response.data.DueDate,
-        category: response.data.Category,
-        status: response.data.Status || 'pending',
-        isRecurring: response.data.IsRecurring || false,
-        note: response.data.Note || ''
+        clientId: response.data.client_id_c,
+        description: response.data.description_c,
+        amount: response.data.amount_c,
+        dueDate: response.data.due_date_c,
+        category: response.data.category_c,
+        status: response.data.status_c || 'pending',
+        isRecurring: response.data.is_recurring_c || false,
+        note: response.data.note_c || ''
       };
     } catch (error) {
       console.error("Error in feeService.getById:", error);
@@ -101,43 +101,43 @@ export const feeService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "ClientId" } },
-          { field: { Name: "Description" } },
-          { field: { Name: "Amount" } },
-          { field: { Name: "DueDate" } },
-          { field: { Name: "Category" } },
-          { field: { Name: "Status" } },
-          { field: { Name: "IsRecurring" } },
-          { field: { Name: "Note" } }
+          { field: { Name: "client_id_c" } },
+          { field: { Name: "description_c" } },
+          { field: { Name: "amount_c" } },
+          { field: { Name: "due_date_c" } },
+          { field: { Name: "category_c" } },
+          { field: { Name: "status_c" } },
+          { field: { Name: "is_recurring_c" } },
+          { field: { Name: "note_c" } }
         ],
         where: [
           {
-            FieldName: "ClientId",
+            FieldName: "client_id_c",
             Operator: "EqualTo",
             Values: [parseInt(clientId)]
           }
         ]
       };
 
-      const response = await apperClient.fetchRecords('Fees', params);
+      const response = await apperClient.fetchRecords('fee_c', params);
       
       if (!response.success) {
         return [];
       }
 
-      return response.data.map(fee => ({
+return response.data.map(fee => ({
         Id: fee.Id,
-        clientId: fee.ClientId,
-        description: fee.Description,
-        amount: fee.Amount,
-        dueDate: fee.DueDate,
-        category: fee.Category,
-        status: fee.Status || 'pending',
-        isRecurring: fee.IsRecurring || false,
-        note: fee.Note || ''
+        clientId: fee.client_id_c,
+        description: fee.description_c,
+        amount: fee.amount_c,
+        dueDate: fee.due_date_c,
+        category: fee.category_c,
+        status: fee.status_c || 'pending',
+        isRecurring: fee.is_recurring_c || false,
+        note: fee.note_c || ''
       }));
     } catch (error) {
       console.error("Error in feeService.getByClientId:", error);
@@ -153,20 +153,20 @@ export const feeService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         records: [{
-          ClientId: parseInt(feeData.clientId),
-          Description: feeData.description,
-          Amount: parseFloat(feeData.amount),
-          DueDate: feeData.dueDate,
-          Category: feeData.category,
-          Status: 'pending',
-          IsRecurring: feeData.isRecurring || false,
-          Note: feeData.note || ''
+          client_id_c: parseInt(feeData.clientId),
+          description_c: feeData.description,
+          amount_c: parseFloat(feeData.amount),
+          due_date_c: feeData.dueDate,
+          category_c: feeData.category,
+          status_c: 'pending',
+          is_recurring_c: feeData.isRecurring || false,
+          note_c: feeData.note || ''
         }]
       };
 
-      const response = await apperClient.createRecord('Fees', params);
+      const response = await apperClient.createRecord('fee_c', params);
       
       if (!response.success) {
         console.error(response.message);
@@ -179,16 +179,16 @@ export const feeService = {
           // Update client totals
           await this.updateClientTotals(feeData.clientId);
           
-          return {
+return {
             Id: result.data.Id,
-            clientId: result.data.ClientId,
-            description: result.data.Description,
-            amount: result.data.Amount,
-            dueDate: result.data.DueDate,
-            category: result.data.Category,
-            status: result.data.Status,
-            isRecurring: result.data.IsRecurring,
-            note: result.data.Note
+            clientId: result.data.client_id_c,
+            description: result.data.description_c,
+            amount: result.data.amount_c,
+            dueDate: result.data.due_date_c,
+            category: result.data.category_c,
+            status: result.data.status_c,
+            isRecurring: result.data.is_recurring_c,
+            note: result.data.note_c
           };
         } else {
           throw new Error(result.message || 'Failed to create fee');
@@ -216,20 +216,20 @@ export const feeService = {
         Id: parseInt(id)
       };
 
-      if (feeData.clientId !== undefined) updateFields.ClientId = parseInt(feeData.clientId);
-      if (feeData.description !== undefined) updateFields.Description = feeData.description;
-      if (feeData.amount !== undefined) updateFields.Amount = parseFloat(feeData.amount);
-      if (feeData.dueDate !== undefined) updateFields.DueDate = feeData.dueDate;
-      if (feeData.category !== undefined) updateFields.Category = feeData.category;
-      if (feeData.status !== undefined) updateFields.Status = feeData.status;
-      if (feeData.isRecurring !== undefined) updateFields.IsRecurring = feeData.isRecurring;
-      if (feeData.note !== undefined) updateFields.Note = feeData.note;
+if (feeData.clientId !== undefined) updateFields.client_id_c = parseInt(feeData.clientId);
+      if (feeData.description !== undefined) updateFields.description_c = feeData.description;
+      if (feeData.amount !== undefined) updateFields.amount_c = parseFloat(feeData.amount);
+      if (feeData.dueDate !== undefined) updateFields.due_date_c = feeData.dueDate;
+      if (feeData.category !== undefined) updateFields.category_c = feeData.category;
+      if (feeData.status !== undefined) updateFields.status_c = feeData.status;
+      if (feeData.isRecurring !== undefined) updateFields.is_recurring_c = feeData.isRecurring;
+      if (feeData.note !== undefined) updateFields.note_c = feeData.note;
 
       const params = {
         records: [updateFields]
       };
 
-      const response = await apperClient.updateRecord('Fees', params);
+      const response = await apperClient.updateRecord('fee_c', params);
       
       if (!response.success) {
         console.error(response.message);
@@ -247,16 +247,16 @@ export const feeService = {
             await this.updateClientTotals(feeData.clientId);
           }
           
-          return {
+return {
             Id: result.data.Id,
-            clientId: result.data.ClientId,
-            description: result.data.Description,
-            amount: result.data.Amount,
-            dueDate: result.data.DueDate,
-            category: result.data.Category,
-            status: result.data.Status,
-            isRecurring: result.data.IsRecurring,
-            note: result.data.Note
+            clientId: result.data.client_id_c,
+            description: result.data.description_c,
+            amount: result.data.amount_c,
+            dueDate: result.data.due_date_c,
+            category: result.data.category_c,
+            status: result.data.status_c,
+            isRecurring: result.data.is_recurring_c,
+            note: result.data.note_c
           };
         } else {
           throw new Error(result.message || 'Failed to update fee');
@@ -284,7 +284,7 @@ export const feeService = {
         RecordIds: [parseInt(id)]
       };
 
-      const response = await apperClient.deleteRecord('Fees', params);
+const response = await apperClient.deleteRecord('fee_c', params);
       
       if (!response.success) {
         console.error(response.message);
